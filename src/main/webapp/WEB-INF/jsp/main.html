@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <title>惠益生--您的健康医生</title>
+	    <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+	    <link rel="shortcut icon" href="/favicon.ico"/>
+	    <meta name="apple-mobile-web-app-capable" content="yes"/>
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<!-- 	    <base th:href="@{pageContext.request.contextPath}/"/> -->
+	    <!-- 使用阿里cdn引入css文件 -->
+<!-- 	    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css"/> -->
+<!--     	<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css"/> -->
+	    <link rel="stylesheet" href="/SUI-Mobile-dev/dist/css/sm.min.css"/>
+    	<link rel="stylesheet" href="/SUI-Mobile-dev/dist/css/sm-extend.min.css"/>
+	</head>
+	<body>
+       	<div class="page" id="page">
+		  <header class="bar bar-nav">
+<!-- 		    <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'> -->
+<!-- 		      <span class="icon icon-left"></span> -->
+<!-- 		      	返回 -->
+<!-- 		    </a> -->
+		    <h1 class="title">惠益生</h1>
+		  </header>
+		  <nav class="bar bar-tab">
+		    <a class="tab-item active" href="#">
+		      <span class="icon icon-home"></span>
+		      <span class="tab-label">首页</span>
+		    </a>
+		    <a class="tab-item" href="#">
+		      <span class="icon icon-me"></span>
+		      <span class="tab-label">我</span>
+		    </a>
+		    <a class="tab-item" href="#">
+		      <span class="icon icon-star"></span>
+		      <span class="tab-label">收藏</span>
+		    </a>
+		    <a class="tab-item" href="#">
+		      <span class="icon icon-settings"></span>
+		      <span class="tab-label">设置</span>
+		    </a>
+		  </nav>
+		  <div class="content">
+		  	<!-- 幻灯片 -->
+			 <div class="swiper-container" data-space-between='10'>
+			 	<div class="swiper-wrapper">
+			    	<div class="swiper-slide">
+			      		<img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""/>
+			      	</div>
+			      	<div class="swiper-slide">
+			      		<img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""/>
+			      	</div>
+			      	<div class="swiper-slide">
+			      		<img src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg" alt=""/>
+			      	</div>
+		 		</div>
+			    <div class="swiper-pagination"></div>
+			   	<!-- If we need scrollbar -->
+   				<div class="swiper-scrollbar"></div>	
+			 </div>
+		    <!-- 这里是页面内容区 -->
+		    <div class="page-index">
+		    	<div class="buttons-tab">
+				    <a href="#tab" class="tab-link active button" th:onclick="'getProductList(this)'" th:id="null">全部项目</a>
+				    <a href="#tab" class="tab-link button" th:onclick="'getProductList(this)'" th:id="1">中医推拿</a>
+				    <a href="#tab" class="tab-link button" th:onclick="'getProductList(this)'" th:id="2">足疗SPA</a>
+				    <a href="#tab" class="tab-link button" th:onclick="'getProductList(this)'" th:id="3">女性·小儿</a>
+			  	</div>
+			  	<div class="content-block">
+			    	<div class="tabs">	
+				      <div id="tab" class="tab active"></div>
+				    </div>
+			  	</div>
+			</div>
+		  </div>
+		</div>
+
+<!-- 	    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script> -->
+<!-- 	    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script> -->
+<!-- 	    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script> -->
+	    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	    <script type='text/javascript' src='/SUI-Mobile-dev/dist/js/sm.js' charset='utf-8'></script>
+	    <script type='text/javascript' src='/SUI-Mobile-dev/dist/js/sm-extend.min.js' charset='utf-8'></script>
+	</body>
+	<!-- 在所有事件后要执行初始化操作 -->
+	<script>
+		/* 初始化才能让幻灯片生效 */
+		$(function(){
+			$.ajax({
+				url:"/mainContr/getProductList",
+				data:{
+					"productType":""
+				},
+				dataType:"html",
+				type:"post",
+				success:function(html){
+					$("#tab").html(html);
+				}
+			});
+			$.init();
+		});
+		
+		function getProductList(target){
+			//将产品类型标签都取消选中
+			$("[href='#tab']").each(function(i){
+				$(this).attr("class","tab-link button");
+			});
+			//设置当前标签为选中状态
+			$(target).closest("a").attr("class","tab-link active button");
+			var productType = $(target).attr("id");
+			$.ajax({
+				url:"/mainContr/getProductList",
+				data:{
+					"productType":productType
+				},
+				dataType:"html",
+				type:"post",
+				success:function(html){
+					$("#tab").html(html);
+				}
+			})
+		}
+	</script>
+</html>
