@@ -5,7 +5,7 @@
 	<!--mybatis ehcache缓存配置 -->
     <!-- 以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />-->
-<!--     <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 
     <resultMap id="productMap" type="cn.kyle.shoppingMall.domain.Product">
         <result property="id" column="ID" jdbcType="VARCHAR"/>
@@ -16,10 +16,7 @@
         <result property="paiedCount" column="PAIEDCOUNT" jdbcType="VARCHAR"/>
         <result property="price" column="PRICE" jdbcType="VARCHAR"/>
         <result property="productType" column="PRODUCT_TYPE" jdbcType="VARCHAR"/>
-        <collection property="productDetailList" column="ID" select="cn.kyle.shoppingMall.mapper.ProductDetailMapper.findProductDetailByProductId">
-        	
-        </collection>
-<!--         <association property="productDetail" column="ID" select="cn.kyle.shoppingMall.mapper.ProductDetailMapper.findProductDetailByProductId"/> -->
+        <collection property="productDetailList" column="ID" select="cn.kyle.shoppingMall.mapper.ProductDetailMapper.findProductDetailByProductId"/>
     </resultMap>
     
     <sql id="column">
@@ -46,10 +43,11 @@
 			<include refid="column"/> 
 		FROM 
 			PRODUCT 
-		WHERE 1=1
+		<where>
 			<if test="productType != 0">
 				AND PRODUCT_TYPE = #{productType}
 			</if>
+		</where>
 	</select>
 	
 	<select id="findProductByProductId" resultMap="productMap" parameterType="String" useCache="true">

@@ -1,6 +1,7 @@
 package cn.kyle.shoppingMall.mapper;
 
 import cn.kyle.shoppingMall.domain.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,13 +23,13 @@ public interface UserMapper {
      * @param id
      * @return
      */
-    User findUserById(String id);
+    User findUserById(@Param(value = "userId") String id);
 
     /**
      * 删除user
      * @param id
      */
-    void deleteUserById(String id);
+    void deleteUserById(@Param(value = "userId")String id);
 
     /**
      * 修改user
@@ -43,10 +44,6 @@ public interface UserMapper {
      */
     List<User> findAll();
 
-    /**
-     * 查询User是否存在
-     * @param user
-     * @return
-     */
-    Integer isUserExits(User user);
+
+    List<User> findByUser(User user);
 }

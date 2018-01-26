@@ -1,7 +1,9 @@
 package cn.kyle.shoppingMall;
 
 import cn.kyle.shoppingMall.domain.Product;
+import cn.kyle.shoppingMall.domain.User;
 import cn.kyle.shoppingMall.mapper.ProductMapper;
+import cn.kyle.shoppingMall.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,23 @@ import java.util.List;
 public class JdbcTest {
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private UserMapper userMapper;
+
 
     @Test
     public void test(){
         List<Product> allProduct = productMapper.findAllProduct();
         for (Product pro:allProduct) {
             System.out.println(pro);
+        }
+    }
+
+    @Test
+    public void userTest(){
+        List<User> all = userMapper.findAll();
+        for (int i = 0; i < all.size(); i++) {
+            System.out.println(all.get(i));
         }
     }
 

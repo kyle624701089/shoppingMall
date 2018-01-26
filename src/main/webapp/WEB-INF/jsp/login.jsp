@@ -1,111 +1,84 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: kyle
-  Date: 2018/1/23
-  Time: 16:31
-  To change this template use File | Settings | File Templates.
---%>
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-
-<%--<html>--%>
-<%--<style>--%>
-    <%--.body{--%>
-        <%--background-color: #06c7cc;--%>
-        <%--width: 500px;--%>
-        <%--height: 800px;--%>
-        <%--text-align: center;--%>
-    <%--}--%>
-<%--</style>--%>
-<%--<head>--%>
-    <%--<title>欢迎界面</title>--%>
-    <%--<jsp:include page="/include.jsp"/>--%>
-<%--</head>--%>
-<%--<body class="body">--%>
-    <%--欢迎光临！--%>
-
-    <%--<div class="ui-form ui-border-t" style="vertical-align: middle;text-align: left">--%>
-        <%--<form>--%>
-            <%--<div class="ui-form-item ui-form-item-show ui-border-b">--%>
-                <%--账&nbsp;&nbsp;&nbsp;号：--%>
-                <%--<input id="username" type="text" value="" placeholder="QQ号/手机号/邮箱"/>--%>
-            <%--</div>--%>
-            <%--<div class="ui-form-item ui-form-item-show ui-border-b">--%>
-                <%--密&nbsp;&nbsp;&nbsp;码：--%>
-                <%--<input id="password" type="text" value="" placeholder="密码"/>--%>
-            <%--</div>--%>
-            <%--<div class="ui-form-item ui-form-item-show ui-border-b">--%>
-                <%--身份证号码：--%>
-                <%--<input id="idCard" type="text" value=""/>--%>
-            <%--</div>--%>
-        <%--</form>--%>
-    <%--</div>--%>
-    <%--<div class="ui-btn-wrap">--%>
-        <%--<button class="ui-btn ui-btn-primary">--%>
-            <%--确定--%>
-        <%--</button>--%>
-    <%--</div>--%>
-
-<%--</body>--%>
-<%--</html>--%>
-
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=yes">
-    <title>FrozenUI Demo</title>
+    <title>登录页面</title>
     <jsp:include page="../../include.jsp"/>
 </head>
-<body ontouchstart="">
-<header class="ui-header ui-header-positive ui-border-b">
-    <i class="ui-icon-return" onclick="history.back()"></i><h1>选项卡 tab</h1><button class="ui-btn">回首页</button>
-</header>
-<footer class="ui-footer ui-footer-btn">
-    <ul class="ui-tiled ui-border-t">
-        <li data-href="index.html" class="ui-border-r"><div>基础样式</div></li>
-        <li data-href="ui.html" class="ui-border-r"><div>UI组件</div></li>
-        <li data-href="js.html"><div>JS插件</div></li>
-    </ul>
-</footer>
-<section class="ui-container">
-    <section id="tab">
-        <div class="demo-item">
-            <p class="demo-desc">标签栏</p>
-            <div class="demo-block">
-                <div class="ui-tab">
-                    <ul class="ui-tab-nav ui-border-b">
-                        <li class="current">热门推荐</li>
-                        <li>全部表情</li>
-                        <li>表情</li>
-                    </ul>
-                    <ul class="ui-tab-content" style="width:300%">
-                        <li>内容1</li>
-                        <li>内容2</li>
-                        <li>内容3</li>
-                    </ul>
+<body>
+<div class="container">
+    <div class="row" style="text-align: center">
+        <form id="loginForm" style="vertical-align: middle" class="form-horizontal">
+            <div class="form-group" style="text-align: left">
+                <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
                 </div>
             </div>
-            <script class="demo-script">
-
-            </script>
-        </div>
-    </section>
-</section>
-<script>
-    (function (){
-        var tab = new fz.Scroll('.ui-tab', {
-            role: 'tab',
-            autoplay: true,
-            interval: 3000
-        });
-        /* 滑动开始前 */
-        tab.on('beforeScrollStart', function(fromIndex, toIndex) {
-            console.log(fromIndex,toIndex);// from 为当前页，to 为下一页
-        })
-    })();
-</script>
+            <div class="form-group" style="text-align: left">
+                <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group" >
+                <div class="col-sm-offset-2 col-sm-10" >
+                    <div class="checkbox" style="text-align: left">
+                        <label>
+                            <input type="checkbox"> 记住我
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default" onclick="login()" id="loginBtn">登录</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-default" onclick="regis()" id="regisBtn">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
-</html>
+<script>
+    /*登录*/
+    function login() {
+        var username = $("#username").val().trim();
+        var password = $("#password").val().trim();
+        if (!username.length || !password.length){
+            SYS.alert("用户名或密码不能为空!");
+            return false;
+        }
+
+        $.ajax({
+           url:"/loginValidate",
+            dataType:"text",
+            async:false,
+            type:"post",
+            data:{
+               "username":username,
+                "password":password
+            },
+            success:function (text) {
+               /*登录成功*/
+                if ("true"===text){
+                    SYS.ajax({
+                        url:"/main",
+                        dataType:"html",
+                        type:"get",
+                        data:{},
+                        success:function (html) {
+                            SYS.pageContent(html);
+                        }
+                    })
+                }
+                /*登录失败*/
+                if ("false"===text){
+                    SYS.alert("用户名或密码错误!");
+                }
+            }
+        });
+    }
+</script>

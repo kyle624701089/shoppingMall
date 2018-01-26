@@ -1,12 +1,12 @@
 package cn.kyle.shoppingMall.controller;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import cn.kyle.shoppingMall.domain.Product;
 import cn.kyle.shoppingMall.domain.ShoppingCart;
+import cn.kyle.shoppingMall.domain.User;
+import cn.kyle.shoppingMall.mapper.ProductMapper;
+import cn.kyle.shoppingMall.mapper.UserMapper;
+import cn.kyle.shoppingMall.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.kyle.shoppingMall.domain.Product;
-import cn.kyle.shoppingMall.domain.User;
-import cn.kyle.shoppingMall.mapper.ProductMapper;
-import cn.kyle.shoppingMall.mapper.UserMapper;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/9/19.
@@ -25,11 +24,14 @@ import cn.kyle.shoppingMall.mapper.UserMapper;
 @Controller
 public class LoginController extends BaseController{
 
-    @Resource
+    @Autowired
     private UserMapper userMapper;
     
-    @Resource
+    @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 跳转到登录页面
@@ -49,8 +51,9 @@ public class LoginController extends BaseController{
     @PostMapping("/loginValidate")
     @ResponseBody
     public String loginValidate(HttpServletRequest request,User user){
-        Integer isUserExits = userMapper.isUserExits(user);
-        if (isUserExits == 1){
+        List<User> users = userService.selectByUser(user);
+        if (users.size() == 1){
+            user = users.get(0);
             request.getSession().setAttribute("USER_IN_SESSION",user);
             ShoppingCart cartInSession = (ShoppingCart)request.getSession().getAttribute("CART_IN_SESSION");
             if (cartInSession==null){
