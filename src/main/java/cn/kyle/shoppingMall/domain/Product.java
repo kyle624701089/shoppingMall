@@ -28,9 +28,10 @@ public class Product extends BaseEntity{
 	private String intro;//产品介绍
 	private String duration;//操作时长(分钟)
 	private String opeType;//操作方式(卧姿，站姿，坐姿...)
-	private String paiedCount;//(已付款人数)
+	private String paidCount;//(已付款人数)
 	private String price;//价格
-	private String productType;//产品分类：1:中医推拿;2:足疗SPA;3:女性·小儿
+    //对应产品的分类：所有商品（allProduct），中医推拿（medicine），足疗SPA（feetSpa），女性小儿（femaleAndChild）
+    private String productNumber;
 	private String imgPath;//图片地址
 
 	private List<ProductDetail> productDetailList;
@@ -65,23 +66,11 @@ public class Product extends BaseEntity{
 	public void setOpeType(String opeType) {
 		this.opeType = opeType;
 	}
-	public String getPaiedCount() {
-		return paiedCount;
-	}
-	public void setPaiedCount(String paiedCount) {
-		this.paiedCount = paiedCount;
-	}
 	public String getPrice() {
 		return price;
 	}
 	public void setPrice(String price) {
 		this.price = price;
-	}
-	public String getProductType() {
-		return productType;
-	}
-	public void setProductType(String productType) {
-		this.productType = productType;
 	}
 	public String getImgPath() {
 		return imgPath;
@@ -95,9 +84,20 @@ public class Product extends BaseEntity{
 	public void setProductDetailList(List<ProductDetail> productDetailList) {
 		this.productDetailList = productDetailList;
 	}
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", intro=" + intro + ", duration=" + duration + ", opeType="
-				+ opeType + ", paiedCount=" + paiedCount + ", price=" + price + ", productType=" + productType + "]";
+
+	public String getProductNumber() {
+		return productNumber;
 	}
+
+	public void setProductNumber(String productNumber) {
+		this.productNumber = productNumber;
+	}
+
+    public String getPaidCount() {
+        return paidCount;
+    }
+
+    public void setPaidCount(String paidCount) {
+        this.paidCount = paidCount;
+    }
 }

@@ -8,21 +8,21 @@
 </head>
 <body>
 <div class="container">
-    <div class="row" style="text-align: center">
+    <div class="row center-block" style="text-align: center">
         <form id="loginForm" style="vertical-align: middle" class="form-horizontal">
             <div class="form-group" style="text-align: left">
-                <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+                <label for="username" class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <input type="email" class="form-control" id="username" placeholder="QQ/手机号/邮箱">
                 </div>
             </div>
             <div class="form-group" style="text-align: left">
-                <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                <label for="password" class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" id="password" placeholder="密码">
                 </div>
             </div>
-            <div class="form-group" >
+            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10" >
                     <div class="checkbox" style="text-align: left">
                         <label>
@@ -33,9 +33,9 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-default" onclick="login()" id="loginBtn">登录</button>
+                    <button type="button" class="btn btn-primary" onclick="login()" id="loginBtn">登录</button>
                     &nbsp;&nbsp;&nbsp;
-                    <button type="button" class="btn btn-default" onclick="regis()" id="regisBtn">注册</button>
+                    <button type="button" class="btn btn-success" onclick="regis()" id="regisBtn">注册</button>
                 </div>
             </div>
         </form>
@@ -51,7 +51,6 @@
             SYS.alert("用户名或密码不能为空!");
             return false;
         }
-
         $.ajax({
            url:"/loginValidate",
             dataType:"text",
@@ -67,10 +66,10 @@
                     SYS.ajax({
                         url:"/main",
                         dataType:"html",
-                        type:"get",
+                        type:"post",
                         data:{},
                         success:function (html) {
-                            SYS.pageContent(html);
+                            $(".container").html(html);
                         }
                     })
                 }

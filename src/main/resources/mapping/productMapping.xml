@@ -12,10 +12,11 @@
         <result property="name" column="NAME" jdbcType="VARCHAR"/>
         <result property="intro" column="INTRO" jdbcType="VARCHAR"/>
         <result property="duration" column="DURATION" jdbcType="VARCHAR"/>
-        <result property="opeType" column="OPETYPE" jdbcType="VARCHAR"/>
-        <result property="paiedCount" column="PAIEDCOUNT" jdbcType="VARCHAR"/>
+        <result property="opeType" column="OPE_TYPE" jdbcType="VARCHAR"/>
+        <result property="paidCount" column="PAID_COUNT" jdbcType="VARCHAR"/>
         <result property="price" column="PRICE" jdbcType="VARCHAR"/>
-        <result property="productType" column="PRODUCT_TYPE" jdbcType="VARCHAR"/>
+        <result property="productNumber" column="PRODUCT_NUMBER" jdbcType="VARCHAR"/>
+        <result property="imgPath" column="IMG_PATH" jdbcType="VARCHAR"/>
         <collection property="productDetailList" column="ID" select="cn.kyle.shoppingMall.mapper.ProductDetailMapper.findProductDetailByProductId"/>
     </resultMap>
     
@@ -24,11 +25,11 @@
     	NAME,
     	INTRO,
     	DURATION,
-    	OPETYPE,
-    	PAIEDCOUNT,
-    	PAIEDCOUNT,
+    	OPE_TYPE,
+    	PAID_COUNT,
     	PRICE,
-    	PRODUCT_TYPE
+    	PRODUCT_NUMBER,
+    	IMG_PATH
     </sql>
 
     <select id="findAllProduct" resultMap="productMap" useCache="true">
@@ -38,19 +39,19 @@
         	product
     </select>
 
-	<select id="findProductListByProductType" resultMap="productMap" parameterType="String"  useCache="true">
+	<select id="findByProductNumber" resultMap="productMap" parameterType="String" useCache="true">
 		SELECT 
 			<include refid="column"/> 
 		FROM 
 			PRODUCT 
 		<where>
-			<if test="productType != 0">
-				AND PRODUCT_TYPE = #{productType}
+			<if test="productNumber != null and productNumber != ''">
+			    PRODUCT_NUMBER = #{productNumber}
 			</if>
 		</where>
 	</select>
 	
-	<select id="findProductByProductId" resultMap="productMap" parameterType="String" useCache="true">
+	<select id="findById" resultMap="productMap" parameterType="String" useCache="true">
 		SELECT 
 			<include refid="column"/>
 		FROM

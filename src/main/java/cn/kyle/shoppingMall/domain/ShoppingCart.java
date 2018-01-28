@@ -1,6 +1,8 @@
 package cn.kyle.shoppingMall.domain;
 
 import cn.kyle.shoppingMall.mapper.ProductMapper;
+import cn.kyle.shoppingMall.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -13,8 +15,8 @@ import java.util.Map;
  */
 public class ShoppingCart extends BaseEntity{
 
-    @Resource
-    private ProductMapper productMapper;
+    @Autowired
+    private IProductService productService;
 
     /**
      * userId：对应用户id，一个用户拥有对应的唯一的购物车
@@ -60,7 +62,7 @@ public class ShoppingCart extends BaseEntity{
         while (iterator.hasNext()){
             Map.Entry<String, Integer> next = iterator.next();
             String productId = next.getKey();
-            Double price =Double.valueOf(productMapper.findProductByProductId(productId).getPrice());
+            Double price =Double.valueOf(productService.selectById(productId).getPrice());
             totalPrice += price*next.getValue();
         }
         return totalPrice;
@@ -136,7 +138,7 @@ public class ShoppingCart extends BaseEntity{
     public Double getAProductTotalPrice(String productId){
         if (productMap.containsKey(productId)){
             Integer count = productMap.get(productId);
-            Double price = Double.valueOf(productMapper.findProductByProductId(productId).getPrice());
+            Double price = Double.valueOf(productService.selectById(productId).getPrice());
             return count*price;
         } else {
             return 0.0D;

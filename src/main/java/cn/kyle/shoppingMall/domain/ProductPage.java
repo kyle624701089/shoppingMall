@@ -8,9 +8,6 @@
 */ 
 package cn.kyle.shoppingMall.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @ClassName：ProductPage
  * @Description：用于main页面产品类别的分页展示
@@ -27,8 +24,23 @@ public class ProductPage extends BaseEntity{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String pageName;//分页名称
-	List<Product> products = new ArrayList<>();
-	public String getId() {
+	//对应产品的分类：所有商品（allProduct），中医推拿（medicine），足疗SPA（feetSpa），女性小儿（femaleAndChild）
+	private String pageNumber;
+	//标签页上的展示顺序
+	private Integer showOrder;
+
+    public ProductPage() {
+        super();
+    }
+
+    public ProductPage(String id, String pageName, String pageNumber, Integer showOrder) {
+        this.id = id;
+        this.pageName = pageName;
+        this.pageNumber = pageNumber;
+        this.showOrder = showOrder;
+    }
+
+    public String getId() {
 		return id;
 	}
 	public void setId(String id) {
@@ -40,10 +52,30 @@ public class ProductPage extends BaseEntity{
 	public void setPageName(String pageName) {
 		this.pageName = pageName;
 	}
-	public List<Product> getProducts() {
-		return products;
+
+	public String getPageNumber() {
+		return pageNumber;
 	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
+
+	public void setPageNumber(String pageNumber) {
+		this.pageNumber = pageNumber;
 	}
+
+    public Integer getShowOrder() {
+        return showOrder;
+    }
+
+    public void setShowOrder(Integer showOrder) {
+        this.showOrder = showOrder;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductPage{" +
+                "id='" + id + '\'' +
+                ", pageName='" + pageName + '\'' +
+                ", pageNumber='" + pageNumber + '\'' +
+                ", showOrder=" + showOrder +
+                '}';
+    }
 }

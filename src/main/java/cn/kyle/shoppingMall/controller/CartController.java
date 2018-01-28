@@ -2,6 +2,8 @@ package cn.kyle.shoppingMall.controller;
 
 import cn.kyle.shoppingMall.domain.Product;
 import cn.kyle.shoppingMall.mapper.ProductMapper;
+import cn.kyle.shoppingMall.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/cartContr")
 public class CartController {
 
-    @Resource
-    private ProductMapper productMapper;
+    @Autowired
+    private IProductService productService;
 
     @PostMapping("/odderPage")
     public String odderPage(HttpServletRequest request,ModelMap modelMap){
         String productId = request.getParameter("productId");
-        Product product = productMapper.findProductByProductId(productId);
+        Product product = productService.selectById(productId);
         modelMap.addAttribute("product",product);
         return "odderPage";
     }

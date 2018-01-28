@@ -36,8 +36,8 @@ public interface ProductMapper {
 	List<Product> findAllProduct();
 
 	/**
-	 * @Title: findProductListByProductType 
-	 * @param：@param productType
+	 * @Title: findByProductNumber
+	 * @param：@param productNumber
 	 * @param：@return
 	 * @return：List<Product>
 	 * @Description：根据产品类型查询对应的产品列表
@@ -45,10 +45,10 @@ public interface ProductMapper {
 	 * @date 2017年10月19日 上午9:57:52
 	 * @throws
 	 */
-	List<Product> findProductListByProductType(@Param(value = "productType") String productType);
+	List<Product> findByProductNumber(@Param(value = "productNumber") String productNumber);
 
 	/**
-	 * @Title: findProductByProductId
+	 * @Title: findById
 	 * @param：@param productId
 	 * @param：@return
 	 * @return：Product
@@ -57,6 +57,6 @@ public interface ProductMapper {
 	 * @date 2017年10月21日 下午1:58:30
 	 * @throws
 	 */
-	Product findProductByProductId(@Param(value = "productId") String productId);
+	Product findById(@Param(value = "productId") String productId);
 
 }

@@ -8,18 +8,16 @@
 */ 
 package cn.kyle.shoppingMall.controller;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import cn.kyle.shoppingMall.domain.Product;
+import cn.kyle.shoppingMall.service.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.kyle.shoppingMall.domain.Product;
-import cn.kyle.shoppingMall.mapper.ProductMapper;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @ClassName：MainController
@@ -31,15 +29,15 @@ import cn.kyle.shoppingMall.mapper.ProductMapper;
 @Controller
 @RequestMapping("/mainContr")
 public class MainController extends BaseController{
-	
-	@Resource
-	private ProductMapper productMapper;
-	
+
+	@Autowired
+	private IProductService productService;
+
 	//根据产品类型标签页展示对应的产品列表
 	@RequestMapping("/getProductList")
 	public String getProductList(HttpServletRequest request,ModelMap modelMap){
 		String productType = request.getParameter("productType");
-		List<Product> productList = productMapper.findProductListByProductType(productType);
+		List<Product> productList = productService.selectByProductNumber(productType);
 		modelMap.addAttribute("productList", productList);
 		return "productListPage";
 	}
@@ -48,7 +46,7 @@ public class MainController extends BaseController{
 	@PostMapping("/productDetail")
 	public String postProductDetail(HttpServletRequest request,ModelMap modelMap){
 		String productId = request.getParameter("productId");
-		Product product = productMapper.findProductByProductId(productId);
+		Product product = productService.selectById(productId);
 		modelMap.addAttribute("product", product);
 		return "productDetailPage";
 	}
