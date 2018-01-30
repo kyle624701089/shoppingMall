@@ -1,10 +1,10 @@
 package cn.kyle.shoppingMall.controller;
 
-import cn.kyle.shoppingMall.domain.Product;
+import cn.kyle.shoppingMall.domain.ProductPage;
 import cn.kyle.shoppingMall.domain.ShoppingCart;
 import cn.kyle.shoppingMall.domain.User;
-import cn.kyle.shoppingMall.mapper.ProductMapper;
-import cn.kyle.shoppingMall.mapper.UserMapper;
+import cn.kyle.shoppingMall.service.IProductPageService;
+import cn.kyle.shoppingMall.service.IProductService;
 import cn.kyle.shoppingMall.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -25,13 +27,11 @@ import java.util.UUID;
 public class LoginController extends BaseController{
 
     @Autowired
-    private UserMapper userMapper;
-    
-    @Autowired
-    private ProductMapper productMapper;
-
+    private IProductService productService;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IProductPageService productPageService;
 
     /**
      * 跳转到登录页面
@@ -77,8 +77,16 @@ public class LoginController extends BaseController{
     @PostMapping("/main")
     public String postMain(HttpServletRequest request,ModelMap modelMap){
         request.getSession().setAttribute("USER_IN_SESSION",getUser(request));
-        List<Product> productList = productMapper.findAllProduct();
-		modelMap.addAttribute("productList", productList);
+        /*List<Product> productList = productService.selectAllProduct();
+		modelMap.addAttribute("productList", productList);*/
+        List<ProductPage> productPages = productPageService.selectAllProductPage();
+        modelMap.addAttribute("productPages",productPages);
+        Map<String,Object> productMap = new HashMap<>();
+        for (ProductPage pp:productPages) {
+            String pageNumber = pp.getPageNumber();
+            productMap.put(pageNumber,productService.selectByProductNumber(pageNumber));
+        }
+        modelMap.addAttribute("productMap",productMap);
         return "main";
     }
     
@@ -95,9 +103,15 @@ public class LoginController extends BaseController{
      */
     @GetMapping("/main")
     public String getMain(ModelMap modelMap){
-    	List<Product> productList = productMapper.findAllProduct();
-		modelMap.addAttribute("productList", productList);
-		modelMap.addAttribute("http", "get");
+        List<ProductPage> productPages = productPageService.selectAllProductPage();
+        modelMap.addAttribute("productPages",productPages);
+        Map<String,Object> productMap = new HashMap<>();
+        for (ProductPage pp:productPages) {
+            String pageNumber = pp.getPageNumber();
+            productMap.put(pageNumber,productService.selectByProductNumber(pageNumber));
+        }
+        modelMap.addAttribute("productMap",productMap);
+        modelMap.addAttribute("http", "get");
         return "main";
     }
 }

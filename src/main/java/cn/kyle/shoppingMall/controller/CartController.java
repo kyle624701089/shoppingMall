@@ -1,7 +1,6 @@
 package cn.kyle.shoppingMall.controller;
 
 import cn.kyle.shoppingMall.domain.Product;
-import cn.kyle.shoppingMall.mapper.ProductMapper;
 import cn.kyle.shoppingMall.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**

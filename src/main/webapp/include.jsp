@@ -9,6 +9,15 @@
 <script type="text/javascript">
     var ctx = "${pageContext.request.contextPath}";
 </script>
+<%--SUI组件  开始--%>
+<%--<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src="js/swiper.js"></script>--%>
+<%--SUI组件  结束--%>
+
 
 <link rel="stylesheet" href="ace_admin/assets/css/bootstrap.css" />
 <link rel="stylesheet" href="ace_admin/assets/css/font-awesome.css" />
@@ -21,9 +30,9 @@
 <link rel="stylesheet" href="ace_admin/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 
 <!-- 左右选择css -->
-<link rel="stylesheet" href="ace_admin/assets/css/bootstrap-duallistbox.css" />
+<%--<link rel="stylesheet" href="ace_admin/assets/css/bootstrap-duallistbox.css" />
 <link rel="stylesheet" href="ace_admin/assets/css/bootstrap-multiselect.css" />
-<link rel="stylesheet" href="ace_admin/assets/css/select2.css" />
+<link rel="stylesheet" href="ace_admin/assets/css/select2.css" />--%>
 
 <!-- jqueryui dialog -->
 <link rel="stylesheet" href="ace_admin/assets/css/jquery-ui.css" />
@@ -64,18 +73,18 @@
 <script src="ace_admin/assets/js/jquery.validate.js"></script>
 
 <!-- ace tree 树-->
-<script src="ace_admin/assets/js/fuelux/fuelux.tree.js"></script>
-<script src="ace_admin/assets/js/ace/elements.treeview.js"></script>
+<%--<script src="ace_admin/assets/js/fuelux/fuelux.tree.js"></script>
+<script src="ace_admin/assets/js/ace/elements.treeview.js"></script>--%>
 
 <!-- 弹出框 -->
 <script src="ace_admin/assets/js/bootbox.js"></script>
 
 <!-- select 左右选择 -->
-<script src="ace_admin/assets/js/jquery.bootstrap-duallistbox.js"></script>
+<%--<script src="ace_admin/assets/js/jquery.bootstrap-duallistbox.js"></script>
 <script src="ace_admin/assets/js/jquery.raty.js"></script>
 <script src="ace_admin/assets/js/bootstrap-multiselect.js"></script>
 <script src="ace_admin/assets/js/select2.js"></script>
-<script src="ace_admin/assets/js/typeahead.jquery.js"></script>
+<script src="ace_admin/assets/js/typeahead.jquery.js"></script>--%>
 
 <!-- 时间 -->
 <link rel="stylesheet" href="ace_admin/assets/css/bootstrap-datepicker3.css" />

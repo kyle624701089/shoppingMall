@@ -11,6 +11,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>main页面</title>
     <jsp:include page="../../include.jsp"/>
 </head>
@@ -60,20 +62,86 @@
         <div>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#allProduct" aria-controls="allProduct" role="tab" data-toggle="tab">全部项目</a></li>
-                <li role="presentation"><a href="#medicine" aria-controls="medicine" role="tab" data-toggle="tab">中医推拿</a></li>
-                <li role="presentation"><a href="#feetSpa" aria-controls="feetSpa" role="tab" data-toggle="tab">足疗SPA</a></li>
-                <li role="presentation"><a href="#femaleAndChild" aria-controls="femaleAndChild" role="tab" data-toggle="tab">女性·小儿</a></li>
+                <c:forEach items="${productPages}" var="productPage" varStatus="vs">
+                    <c:if test="${vs.index == 0}">
+                        <li role="presentation" class="active">
+                            <a href="#allProduct" aria-controls="allProduct" role="tab" data-toggle="tab">全部项目</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${productPage.showOrder!=1}">
+                        <li role="presentation">
+                            <a href="#${productPage.pageNumber}" aria-controls="${productPage.pageNumber}" role="tab" data-toggle="tab">${productPage.pageName}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="allProduct">全部项目</div>
-                <div role="tabpanel" class="tab-pane fade" id="medicine">中医推拿</div>
-                <div role="tabpanel" class="tab-pane fade" id="feetSpa">足疗SPA</div>
-                <div role="tabpanel" class="tab-pane fade" id="femaleAndChild">女性·小儿</div>
+                <c:forEach items="${productMap}" var="map">
+                    <c:choose>
+                        <c:when test="${map.key=='allProduct'}">
+                            <div role="tabpanel" class="tab-pane fade in active" id="allProduct">
+                        </c:when>
+                        <c:otherwise>
+                            <div role="tabpanel" class="tab-pane fade" id="${map.key}">
+                        </c:otherwise>
+                    </c:choose>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <c:forEach items="${map.value}" var="product">
+                                <div class="media search-media">
+                                    <input type="text" hidden="hidden" name="productId" value="${product.id}"/>
+                                    <div class="media-left">
+                                        <a href="#">
+                                            <img class="media-object" data-src="img/怪兽与蜥蜴.jpg" alt="${product.name}" style="width: 120px; height: 120px;" src="img/怪兽与蜥蜴.jpg" data-holder-rendered="true">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <div style="text-align: left;">
+                                            <h4 class="media-heading">
+                                                <a href="#" class="blue">${product.name}</a>
+                                            </h4>
+                                            <p>${product.intro}</p>
+                                        </div>
+                                        <div class="search-actions text-left" style="margin-bottom: 5px;margin-top: 40px">
+                                            <div class="action-buttons smaller-125">
+                                                <span class="blue bolder bigger-150">￥${product.price}</span>
+                                                <a href="#" style="margin-left: 15px">
+                                                    <i class="ace-icon fa fa-phone green"></i>
+                                                </a>
+                                                <a href="#">
+                                                    <i class="ace-icon fa fa-heart red"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="media-right" style="vertical-align: bottom">
+                                        <a class="search-btn-action btn btn-sm btn-block btn-info" onclick="buy(this)">预约</a>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
             </div>
         </div>
-
+        </div>
     </div>
 </div>
 </body>
+<div class="btn-group btn-corner">
+    <button class="btn">5</button>
+    <button class="btn">6</button>
+    <button class="btn">7</button>
+</div>
+<script type="text/javascript">
+
+    /*预约*/
+    function buy(target) {
+        var productId = $(target).find("input[name=productId]").val();
+        SYS.ajax({
+
+        });
+    }
+</script>
